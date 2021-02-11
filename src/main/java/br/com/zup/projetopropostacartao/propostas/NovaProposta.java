@@ -1,10 +1,6 @@
 package br.com.zup.projetopropostacartao.propostas;
 
 import br.com.zup.projetopropostacartao.validators.CpfCnpj;
-import br.com.zup.projetopropostacartao.validators.ValorUnico;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -24,32 +20,35 @@ public class NovaProposta {
     @Email
     @Column(nullable = false, unique = true)
     private String email;
+    @NotNull
+    @Embedded
+    @Column(nullable = false)
+    private Endereco endereco;
     @NotBlank
     @NotNull
     @CpfCnpj
-    @Pattern(regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")
+    @Column(nullable = false)
     private String documento;
-    @NotNull
-    @Embedded
-    private Endereco endereco;
     @NotNull
     @Positive
     private BigDecimal salario;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
 
     /*
     @deprecated deveria ser usado apenas por frameworks
     */
     @Deprecated
-    NovaProposta() {
-    }
+    NovaProposta() {}
 
     public NovaProposta(@NotBlank @NotNull String nome, @NotBlank @NotNull @Email String email,
-                        @NotBlank @NotNull @Pattern(regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})") String documento,
-                        @NotNull Endereco endereco, @NotNull @Positive BigDecimal salario) {
+                        @NotBlank String documento, @NotNull @Positive BigDecimal salario, @NotNull Endereco endereco) {
         this.nome = nome;
         this.email = email;
-        this.documento = documento;
         this.endereco = endereco;
+        this.documento = documento;
         this.salario = salario;
     }
 
@@ -63,5 +62,29 @@ public class NovaProposta {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void atualizaStatus(String solicitacao) {
+        this.status = status.resultadoPara(solicitacao);
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -16,7 +16,6 @@ public class NovaPropostaRequest {
     @NotBlank @Email @ValorUnico(domainClass = NovaProposta.class,fieldName = "email")
     private String email;
     @NotBlank  @CpfCnpj
-    @Pattern(regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")
     private String documento;
     @NotNull @Positive
     private BigDecimal salario;
@@ -67,12 +66,12 @@ public class NovaPropostaRequest {
 
     public NovaProposta toModel() {
         return new NovaProposta(nome,
-                    email,
-                    documento,
-                    new Endereco(endereco.getCep(),
-                        endereco.getLogradouro(),
-                        endereco.getNumero(),
-                        endereco.getComplemento()),
-                        salario);
+                                email,
+                                documento,
+                                salario,
+                                new Endereco(endereco.getCep(),
+                                        endereco.getLogradouro(),
+                                        endereco.getNumero(),
+                                        endereco.getComplemento(),salario));
     }
 }

@@ -2,6 +2,9 @@ package br.com.zup.projetopropostacartao.propostas;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Embeddable
 public class Endereco {
@@ -21,7 +24,7 @@ public class Endereco {
     @Deprecated
     Endereco() {}
 
-    public Endereco(@NotBlank String cep, @NotBlank String logradouro, @NotBlank String numero, @NotBlank String complemento) {
+    public Endereco(@NotBlank String cep, @NotBlank String logradouro, @NotBlank String numero, @NotBlank String complemento, @NotNull @Positive BigDecimal salario) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;

@@ -12,6 +12,14 @@ public class EnderecoRequest {
     private String numero;
     private String complemento;
 
+    public EnderecoRequest(@NotBlank String cep, @NotBlank String logradouro,
+                           @NotBlank String numero, String complemento) {
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+    }
+
     public String getCep() {
         return cep;
     }
