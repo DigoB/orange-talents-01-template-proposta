@@ -24,7 +24,7 @@ public class Endereco {
     @Deprecated
     Endereco() {}
 
-    public Endereco(@NotBlank String cep, @NotBlank String logradouro, @NotBlank String numero, @NotBlank String complemento, @NotNull @Positive BigDecimal salario) {
+    public Endereco(@NotBlank String cep, @NotBlank String logradouro, @NotBlank String numero, @NotBlank String complemento) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;

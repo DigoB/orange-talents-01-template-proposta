@@ -1,10 +1,11 @@
-package br.com.zup.projetopropostacartao.propostas;
+package br.com.zup.projetopropostacartao.feign;
 
+import br.com.zup.projetopropostacartao.propostas.Proposta;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "analiseclient", url = "http://localhost:9999")
+@FeignClient(name = "analiseclient", url = "${feign.analise.url}")
 public interface AnaliseClient {
 
     @PostMapping("/api/solicitacao")
@@ -16,7 +17,7 @@ public interface AnaliseClient {
         private String nome;
         private Long idProposta;
 
-        public ConsultaStatusRequest(NovaProposta novaProposta) {
+        public ConsultaStatusRequest(Proposta novaProposta) {
             this.documento = novaProposta.getDocumento();
             this.nome = novaProposta.getNome();
             this.idProposta = novaProposta.getId();

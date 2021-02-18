@@ -13,7 +13,7 @@ public class NovaPropostaRequest {
 
     @NotBlank
     private String nome;
-    @NotBlank @Email @ValorUnico(domainClass = NovaProposta.class,fieldName = "email")
+    @NotBlank @Email @ValorUnico(domainClass = Proposta.class,fieldName = "email")
     private String email;
     @NotBlank  @CpfCnpj
     private String documento;
@@ -64,14 +64,11 @@ public class NovaPropostaRequest {
                 '}';
     }
 
-    public NovaProposta toModel() {
-        return new NovaProposta(nome,
-                                email,
-                                documento,
-                                salario,
-                                new Endereco(endereco.getCep(),
-                                        endereco.getLogradouro(),
-                                        endereco.getNumero(),
-                                        endereco.getComplemento(),salario));
+    public Proposta toModel() {
+        return new Proposta(nome,email,
+                new Endereco(endereco.getLogradouro(),
+                        endereco.getNumero(),
+                        endereco.getComplemento(),
+                        endereco.getCep()),documento,salario);
     }
 }
