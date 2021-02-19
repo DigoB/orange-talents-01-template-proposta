@@ -123,6 +123,4 @@ public class Proposta {
                 ", cartaoCriado=" + cartaoCriado +
                 '}';
     }
-
-
 }

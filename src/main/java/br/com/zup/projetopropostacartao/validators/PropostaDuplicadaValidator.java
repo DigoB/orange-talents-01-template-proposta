@@ -1,6 +1,6 @@
 package br.com.zup.projetopropostacartao.validators;
 
-import br.com.zup.projetopropostacartao.propostas.NovaPropostaRequest;
+import br.com.zup.projetopropostacartao.propostas.PropostaRequest;
 import br.com.zup.projetopropostacartao.propostas.Proposta;
 import br.com.zup.projetopropostacartao.repositories.PropostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,14 @@ public class PropostaDuplicadaValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return NovaPropostaRequest.class.isAssignableFrom(clazz);
+        return PropostaRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
         if (errors.hasErrors()) return;
 
-        NovaPropostaRequest request = (NovaPropostaRequest) target;
+        PropostaRequest request = (PropostaRequest) target;
 
         Optional<Proposta> proposta = propostaRepository.findByDocumento(request.getDocumento());
 

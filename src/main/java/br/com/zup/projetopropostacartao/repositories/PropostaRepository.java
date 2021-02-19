@@ -17,4 +17,5 @@ public interface PropostaRepository extends JpaRepository<Proposta, Long> {
 
     Optional<Proposta> findByDocumento(String documento);
 
+    Optional<Object> findById(String id);
 }

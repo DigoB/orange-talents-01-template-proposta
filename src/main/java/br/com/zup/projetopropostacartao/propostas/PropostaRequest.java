@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-public class NovaPropostaRequest {
+public class PropostaRequest {
 
     @NotBlank
     private String nome;
