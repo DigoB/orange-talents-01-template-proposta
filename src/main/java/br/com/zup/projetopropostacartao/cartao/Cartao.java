@@ -1,15 +1,13 @@
 package br.com.zup.projetopropostacartao.cartao;
 
-import br.com.zup.projetopropostacartao.cartao.forms.*;
+import br.com.zup.projetopropostacartao.biometria.Biometria;
 import br.com.zup.projetopropostacartao.propostas.Proposta;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Entity
 @Table(name = "cartoes")
@@ -37,6 +35,9 @@ public class Cartao {
 //    @NotNull
 //    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //    private Collection<Parcela> parcelas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)//,cascade = CascadeType.REFRESH
+    private List<Biometria> biometrias = new ArrayList<>();
 
         private BigDecimal limite;
 //
