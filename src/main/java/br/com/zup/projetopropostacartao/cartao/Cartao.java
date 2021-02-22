@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -16,16 +17,31 @@ public class Cartao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String numeroCartao;
+
     @NotNull
     private LocalDateTime emitidoEm;
+
     @NotNull
     private String titular;
 
-//    @NotNull
-//    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    private Collection<Bloqueio> bloqueios = new ArrayList<>();
+    private BigDecimal limite;
+
+    @NotNull
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private Proposta proposta;
+
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+    private List<Biometria> biometrias = new ArrayList<>();
+
+    @NotNull
+    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private Collection<Bloqueio> bloqueios = new ArrayList<>();
+
+//    @Enumerated(EnumType.STRING)
+//    private StatusBloqueio status = StatusBloqueio.DESBLOQUEADO;
 //    @NotNull
 //    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //    private Collection<Aviso> avisos = new ArrayList<>();
@@ -35,21 +51,12 @@ public class Cartao {
 //    @NotNull
 //    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //    private Collection<Parcela> parcelas = new ArrayList<>();
-
-    @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)//,cascade = CascadeType.REFRESH
-    private List<Biometria> biometrias = new ArrayList<>();
-
-        private BigDecimal limite;
 //
 //    @ManyToOne
 //    private Renegociacao renegociacao;
 //    @NotNull
 //    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //    private Vencimento vencimento;
-
-    @NotNull
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private Proposta proposta;
 
     @Deprecated
     Cartao() {
@@ -60,6 +67,9 @@ public class Cartao {
         this.numeroCartao = numeroCartao;
         this.emitidoEm = emitidoEm;
         this.titular = titular;
+        this.proposta = proposta;
+
+
 //        this.bloqueios = bloqueios.stream().map(bloqueio -> bloqueio.toCartaoBloqueio(this))
 //                .collect(Collectors.toList());
 //        this.avisos = avisos.stream().map(aviso -> aviso.toCartaoAviso(this)).collect(Collectors.toList());
@@ -69,9 +79,8 @@ public class Cartao {
 //        this.limite = limite;
 //        this.renegociacao = renegociacao == null ? null : renegociacao.toRenegociacao(this);
 //        this.vencimento = vencimento.toVencimento(this);
-        this.proposta = proposta;
-    }
 
+    }
 
     public Long getId() {
         return this.id;
@@ -85,9 +94,23 @@ public class Cartao {
         return this.titular;
     }
 
-//    public Collection<Bloqueio> getBloqueios() {
-//        return this.bloqueios;
-//    }
+    public String getNumeroCartao() {
+        return numeroCartao;
+    }
+
+    public Collection<Bloqueio> getBloqueios() {
+        return this.bloqueios;
+    }
+
+    public Proposta getProposta() {
+        return this.proposta;
+    }
+
+
+
+
+
+
 //
 //    public void addBloqueios(Bloqueio bloqueio) {
 //        this.bloqueios.add(bloqueio);
@@ -123,20 +146,7 @@ public class Cartao {
 //    public void addCarteiras(Carteira carteira) {
 //        this.carteiras.add(carteira);
 //    }
-
-    public Proposta getProposta() {
-        return this.proposta;
-    }
-
-    @Override
-    public String toString() {
-        return "Cartao{" +
-                "id=" + id +
-                ", numeroCartao='" + numeroCartao + '\'' +
-                ", emitidoEm=" + emitidoEm +
-                ", titular='" + titular + '\'' +
-                ", limite=" + limite +
-                ", proposta=" + proposta +
-                '}';
-    }
+//    public void bloquear() {
+//        status = StatusBloqueio.BLOQUEADO;
+//    }
 }
