@@ -36,9 +36,13 @@ public class Cartao {
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<Biometria> biometrias = new ArrayList<>();
 
-    @NotNull
-    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private Collection<Bloqueio> bloqueios = new ArrayList<>();
+    @OneToMany(mappedBy = "cartao",cascade = CascadeType.MERGE)
+    private List<Bloqueio> bloqueios = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private StatusBloqueio statusBloqueio = StatusBloqueio.DESBLOQUEADO;
+
+
 
 //    @Enumerated(EnumType.STRING)
 //    private StatusBloqueio status = StatusBloqueio.DESBLOQUEADO;
@@ -68,19 +72,15 @@ public class Cartao {
         this.emitidoEm = emitidoEm;
         this.titular = titular;
         this.proposta = proposta;
+    }
 
-
-//        this.bloqueios = bloqueios.stream().map(bloqueio -> bloqueio.toCartaoBloqueio(this))
-//                .collect(Collectors.toList());
 //        this.avisos = avisos.stream().map(aviso -> aviso.toCartaoAviso(this)).collect(Collectors.toList());
 //        this.carteiras = carteiras.stream().map(carteira -> carteira.toCarteiraDigital(this))
 //                .collect(Collectors.toList());
 //        this.parcelas = parcelas.stream().map(parcela -> parcela.toParcela(this)).collect(Collectors.toList());
-//        this.limite = limite;
 //        this.renegociacao = renegociacao == null ? null : renegociacao.toRenegociacao(this);
 //        this.vencimento = vencimento.toVencimento(this);
 
-    }
 
     public Long getId() {
         return this.id;
@@ -106,15 +106,31 @@ public class Cartao {
         return this.proposta;
     }
 
+    public void bloquear() {
+        StatusBloqueio statusBloqueio = StatusBloqueio.BLOQUEADO;
+    }
+
+    public BigDecimal getLimite() {
+        return this.limite;
+    }
+
+
+    public void bloquear(Bloqueio bloqueio) {
+        this.bloqueios.add(bloqueio);
+    }
+
+    public boolean isBloqueado() {
+        return this.statusBloqueio.equals(StatusBloqueio.BLOQUEADO);
+    }
+
+    public void associaBloqueio(Bloqueio bloqueio) {
+        this.bloqueios.add(bloqueio);
+    }
+}
 
 
 
 
-
-//
-//    public void addBloqueios(Bloqueio bloqueio) {
-//        this.bloqueios.add(bloqueio);
-//    }
 //
 //    public Collection<Aviso> getAvisos() {
 //        return this.avisos;
@@ -128,9 +144,6 @@ public class Cartao {
 //        return this.parcelas;
 //    }
 //
-//    public BigDecimal getLimite() {
-//        return this.limite;
-//    }
 //
 //    public Renegociacao getRenegociacao() {
 //        return this.renegociacao;
@@ -146,7 +159,3 @@ public class Cartao {
 //    public void addCarteiras(Carteira carteira) {
 //        this.carteiras.add(carteira);
 //    }
-//    public void bloquear() {
-//        status = StatusBloqueio.BLOQUEADO;
-//    }
-}

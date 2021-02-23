@@ -1,11 +1,11 @@
 package br.com.zup.projetopropostacartao.cartao.forms;
 
+import br.com.zup.projetopropostacartao.bloqueios.BloqueioRequest;
 import br.com.zup.projetopropostacartao.cartao.*;
 import br.com.zup.projetopropostacartao.propostas.Proposta;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 public class CartaoResponse {
 
@@ -24,26 +24,25 @@ public class CartaoResponse {
 
     private String idProposta;
 
-    public CartaoResponse(String id, LocalDateTime emitidoEm, String titular, Set<BloqueiosForm> bloqueios,
-//                          Set<AvisosForm> avisos, Set<CarteirasForm> carteiras, Set<ParcelasForm> parcelas,
-                            BigDecimal limite, RenegociacaoForm renegociacao, VencimentoForm vencimento,
-                          String idProposta) {
-        this.id = id;
-        this.emitidoEm = emitidoEm;
-        this.titular = titular;
-//        this.bloqueios = bloqueios;
-//        this.avisos = avisos;
-//        this.carteiras = carteiras;
-//        this.parcelas = parcelas;
-        this.limite = limite;
-//        this.renegociacao = renegociacao;
-//        this.vencimento = vencimento;
-        this.idProposta = idProposta;
-    }
-
-    public String getIdProposta() {
-        return this.idProposta;
-    }
+//    public CartaoResponse(String id, LocalDateTime emitidoEm, String titular, Set<BloqueioRequest> bloqueios,
+////                          Set<AvisosForm> avisos, Set<CarteirasForm> carteiras, Set<ParcelasForm> parcelas,
+//                            BigDecimal limite, String idProposta) {
+//        this.id = id;
+//        this.emitidoEm = emitidoEm;
+//        this.titular = titular;
+//        this.limite = limite;
+//        this.idProposta = idProposta;
+//
+//
+//
+////        this.bloqueios = bloqueios;
+////        this.avisos = avisos;
+////        this.carteiras = carteiras;
+////        this.parcelas = parcelas;
+////        this.renegociacao = renegociacao;
+////        this.vencimento = vencimento;
+//
+//    }
 
     public String getId() {
         return this.id;
@@ -55,6 +54,14 @@ public class CartaoResponse {
 
     public String getTitular() {
         return this.titular;
+    }
+
+    public BigDecimal getLimite() {
+        return this.limite;
+    }
+
+    public String getIdProposta() {
+        return this.idProposta;
     }
 
     //    public Set<BloqueiosForm> getBloqueios() {
@@ -72,11 +79,6 @@ public class CartaoResponse {
 //    public Set<ParcelasForm> getParcelas() {
 //        return this.parcelas;
 //    }
-//
-//    public BigDecimal getLimite() {
-//        return this.limite;
-//    }
-//
 //    public RenegociacaoForm getRenegociacao() {
 //        return this.renegociacao;
 //    }

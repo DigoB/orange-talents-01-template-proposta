@@ -1,7 +1,7 @@
 package br.com.zup.projetopropostacartao.feign;
 
-//import br.com.zup.projetopropostacartao.bloqueios.BloqueioRequest;
-//import br.com.zup.projetopropostacartao.bloqueios.BloqueioResponse;
+import br.com.zup.projetopropostacartao.bloqueios.BloqueioRequest;
+import br.com.zup.projetopropostacartao.bloqueios.BloqueioResponse;
 import br.com.zup.projetopropostacartao.cartao.forms.CartaoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,6 @@ public interface CartaoClient {
     @RequestMapping(method = RequestMethod.GET, value = "api/cartoes")
     CartaoResponse solicitaCartao(@RequestParam("idProposta") Long id);
 
-//    @PostMapping("/api/cartoes/{id}/bloqueios")
-//    BloqueioResponse bloqueio(@PathVariable String id, @RequestBody BloqueioRequest request);
+    @PostMapping("/api/cartoes/{id}/bloqueios")
+    BloqueioResponse bloqueio(@PathVariable String id, @RequestBody BloqueioRequest request);
 }
