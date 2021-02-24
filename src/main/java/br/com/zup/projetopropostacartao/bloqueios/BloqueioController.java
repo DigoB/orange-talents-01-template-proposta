@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -64,13 +63,11 @@ public class BloqueioController {
             cartao.associaBloqueio(bloqueio);
 
         } catch (FeignException e) {
-//            if (e.status() == 422) {
                 logger.warn(e.getMessage());
                 return ResponseEntity.unprocessableEntity().build();
         }
 
         manager.merge(cartao);
-//        }
 
         logger.info("Retornando cartao.");
 

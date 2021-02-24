@@ -1,5 +1,7 @@
 package br.com.zup.projetopropostacartao.feign;
 
+import br.com.zup.projetopropostacartao.avisos.AvisoRequest;
+import br.com.zup.projetopropostacartao.avisos.AvisoResponse;
 import br.com.zup.projetopropostacartao.bloqueios.BloqueioRequest;
 import br.com.zup.projetopropostacartao.bloqueios.BloqueioResponse;
 import br.com.zup.projetopropostacartao.cartao.forms.CartaoResponse;
@@ -14,4 +16,7 @@ public interface CartaoClient {
 
     @PostMapping("/api/cartoes/{id}/bloqueios")
     BloqueioResponse bloqueio(@PathVariable String id, @RequestBody BloqueioRequest request);
+
+	@RequestMapping(method = RequestMethod.POST, value = "api/cartoes/{id}/avisos")
+    AvisoResponse solicitaViagem(@PathVariable String id, @RequestBody AvisoRequest avisoRequest);
 }

@@ -1,5 +1,6 @@
 package br.com.zup.projetopropostacartao.cartao;
 
+import br.com.zup.projetopropostacartao.avisos.Aviso;
 import br.com.zup.projetopropostacartao.biometria.Biometria;
 import br.com.zup.projetopropostacartao.propostas.Proposta;
 import javax.persistence.*;
@@ -42,13 +43,14 @@ public class Cartao {
     @Enumerated(EnumType.STRING)
     private StatusBloqueio statusBloqueio = StatusBloqueio.DESBLOQUEADO;
 
+    @OneToMany(mappedBy = "cartao", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Aviso> avisos = new ArrayList<>();
+
 
 
 //    @Enumerated(EnumType.STRING)
 //    private StatusBloqueio status = StatusBloqueio.DESBLOQUEADO;
 //    @NotNull
-//    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    private Collection<Aviso> avisos = new ArrayList<>();
 //    @NotNull
 //    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //    private Collection<Carteira> carteiras = new ArrayList<>();
@@ -98,6 +100,10 @@ public class Cartao {
         return numeroCartao;
     }
 
+    public BigDecimal getLimite() {
+        return this.limite;
+    }
+
     public Collection<Bloqueio> getBloqueios() {
         return this.bloqueios;
     }
@@ -106,14 +112,13 @@ public class Cartao {
         return this.proposta;
     }
 
+    public Collection<Aviso> getAvisos() {
+        return this.avisos;
+    }
+
     public void bloquear() {
         StatusBloqueio statusBloqueio = StatusBloqueio.BLOQUEADO;
     }
-
-    public BigDecimal getLimite() {
-        return this.limite;
-    }
-
 
     public void bloquear(Bloqueio bloqueio) {
         this.bloqueios.add(bloqueio);
@@ -126,16 +131,16 @@ public class Cartao {
     public void associaBloqueio(Bloqueio bloqueio) {
         this.bloqueios.add(bloqueio);
     }
+
+    public void associaAvisos(Aviso aviso) {
+        this.avisos.add(aviso);
+    }
+
 }
 
 
 
 
-//
-//    public Collection<Aviso> getAvisos() {
-//        return this.avisos;
-//    }
-//
 //    public Collection<Carteira> getCarteiras() {
 //        return this.carteiras;
 //    }
@@ -153,9 +158,7 @@ public class Cartao {
 //        return this.vencimento;
 //    }
 //
-//    public void associaAvisos(Aviso aviso) {
-//        this.avisos.add(aviso);
-//    }
+
 //    public void associaCarteiras(Carteira carteira) {
 //        this.carteiras.add(carteira);
 //    }
