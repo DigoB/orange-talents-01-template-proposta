@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityManager;
@@ -33,7 +34,7 @@ public class BloqueioController {
     private static final Logger logger = LoggerFactory.getLogger(BloqueioController.class);
 
     @Transactional
-    @PutMapping("/cartoes/{id}/bloqueios")
+    @PostMapping("/cartoes/{id}/bloqueios")
     public ResponseEntity<?> solicitaBloqueio(@PathVariable Long id, HttpServletRequest request) {
 
         logger.info("Solicitando cartao do banco de dados.");

@@ -1,54 +1,59 @@
 package br.com.zup.projetopropostacartao.cartao;
 
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+// import javax.persistence.*;
+// import javax.validation.constraints.NotBlank;
+// import javax.validation.constraints.NotNull;
+// import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "avisosCartao")
+// @Entity
+// @Table(name = "avisosCartao")
 public class Aviso {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotNull
-    private LocalDateTime validoAte;
-    @NotBlank
-    private String destino;
-    @ManyToOne
-    private Cartao cartao;
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
+//     @ManyToOne
+//     private Cartao cartao;
+//     @NotBlank
+//     private String destino;
+//     @NotNull
+//     private LocalDateTime dataTerminoViagem = LocalDateTime.now();
+//     @NotBlank
+//     private String enderecoIp;
+//     @NotBlank
+//     private String sistemaReponsavel;
 
-    public Aviso(@NotNull LocalDateTime validoAte, @NotBlank String destino, Cartao cartao) {
-        this.validoAte = validoAte;
-        this.destino = destino;
-        this.cartao = cartao;
-    }
+//     public Aviso(Cartao cartao, String destino, String enderecoIp, String sistemaReponsavel) {
+//         this.cartao = cartao;
+//         this.destino = destino;
+//         this.enderecoIp = enderecoIp;
+//         this.sistemaReponsavel = sistemaReponsavel;
+//     }
+    
 
-    public Long getId() {
-        return id;
-    }
+//     public Long getId() {
+//         return this.id;
+//     }
 
-    public LocalDateTime getValidoAte() {
-        return validoAte;
-    }
+//     public Cartao getCartao() {
+//         return this.cartao;
+//     }
 
-    public String getDestino() {
-        return destino;
-    }
+//     public String getDestino() {
+//         return this.destino;
+//     }
 
-    public Cartao getCartao() {
-        return cartao;
-    }
+//     public LocalDateTime getDataTerminoViagem() {
+//         return this.dataTerminoViagem;
+//     }
 
-    @Override
-    public String toString() {
-        return "Avisos{" +
-                "id=" + id +
-                ", validoAte=" + validoAte +
-                ", destino='" + destino + '\'' +
-                ", cartao=" + cartao +
-                '}';
-    }
+//     public String getEnderecoIp() {
+//         return this.enderecoIp;
+//     }
+
+//     public String getSistemaReponsavel() {
+//         return this.sistemaReponsavel;
+//     }
+
 }

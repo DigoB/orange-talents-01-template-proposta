@@ -153,9 +153,9 @@ public class Cartao {
 //        return this.vencimento;
 //    }
 //
-//    public void addAvisos(Aviso aviso) {
+//    public void associaAvisos(Aviso aviso) {
 //        this.avisos.add(aviso);
 //    }
-//    public void addCarteiras(Carteira carteira) {
+//    public void associaCarteiras(Carteira carteira) {
 //        this.carteiras.add(carteira);
 //    }
