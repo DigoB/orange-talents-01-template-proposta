@@ -22,13 +22,4 @@ public class AvisoResponse {
     public String getResultado() {
         return this.resultado;
     }
-
-    public boolean isCriado() {
-        if(this.resultado.equals(statusAviso.CRIADO)) {
-            return true;
-        } else if(this.resultado.equals(statusAviso.FALHA)) {
-            return false;
-        }
-        throw new IllegalStateException("Status inexistente!");
-    }    
 }

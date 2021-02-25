@@ -56,19 +56,21 @@ public class AvisoController {
         request.getRemoteAddr(),request.getHeader("User-Agent"));
 
         logger.info("Informando aviso de viagem ao sistema legado.");
+
         try {
+            
             AvisoResponse response = cartaoClient.solicitaViagem(cartao.getNumeroCartao(), avisoRequest);
 
-            if (response.isCriado()) {
-                logger.info("Salvando alterações do cartão no banco de dados");
+            logger.info("Salvando alterações do cartão no banco de dados");
 
-                manager.merge(cartao);
+            cartao.associaAvisos(aviso);
 
-                logger.info("Aviso de viagem registrado com sucesso.");
-            }
+            manager.merge(cartao);
+
+            logger.info("Aviso de viagem registrado com sucesso.");
+
         } catch(FeignException e) {
-            logger.warn("Erro inesperado ao informar o aviso de viagem ao sistema legado.\n" +
-                "Desfazendo alterações.");
+            logger.warn(e.getMessage());
                 return ResponseEntity.unprocessableEntity().body("Erro inesperado ao informar o aviso de viagem ao sistema legado.");
         }
 

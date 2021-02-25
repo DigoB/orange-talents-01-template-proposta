@@ -4,14 +4,13 @@ import java.time.LocalDate;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AvisoRequest {
 
     @NotBlank
     private String destino;
     
-    @NotNull @JsonFormat(pattern = "dd-MM-yyyy") @Future
+    @NotNull @Future
     private LocalDate validoAte;
 
 
