@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.util.UriComponentsBuilder;
 import br.com.zup.projetopropostacartao.cartao.Cartao;
 import br.com.zup.projetopropostacartao.feign.CartaoClient;
 import br.com.zup.projetopropostacartao.repositories.CartaoRepository;
@@ -40,7 +39,7 @@ public class AvisoController {
     @Transactional
     @PostMapping("cartoes/{id}/avisos")
     public ResponseEntity<?> cadastraAviso(@PathVariable Long id,@RequestBody @Valid AvisoRequest avisoRequest,
-    HttpServletRequest request, UriComponentsBuilder uriBuilder) {
+    HttpServletRequest request) {
 
         logger.info("Solicitando cartao do banco de dados.");
         Cartao cartao = cartaoRepository.findById(id).orElseThrow(
@@ -71,11 +70,9 @@ public class AvisoController {
 
         } catch(FeignException e) {
             logger.warn(e.getMessage());
-                return ResponseEntity.unprocessableEntity().body("Erro inesperado ao informar o aviso de viagem ao sistema legado.");
+                return ResponseEntity.badRequest().body("Erro inesperado ao informar o aviso de viagem ao sistema legado.");
         }
 
-        URI uri = uriBuilder.path("api/cartao/{id}").buildAndExpand(cartao.getId()).toUri();
-
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.ok().build();
     }
 }

@@ -2,8 +2,10 @@ package br.com.zup.projetopropostacartao.cartao;
 
 import br.com.zup.projetopropostacartao.avisos.Aviso;
 import br.com.zup.projetopropostacartao.biometria.Biometria;
+import br.com.zup.projetopropostacartao.carteiras.Carteira;
 import br.com.zup.projetopropostacartao.propostas.Proposta;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,7 +27,7 @@ public class Cartao {
     @NotNull
     private LocalDateTime emitidoEm;
 
-    @NotNull
+    @NotBlank
     private String titular;
 
     private BigDecimal limite;
@@ -34,26 +36,28 @@ public class Cartao {
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Proposta proposta;
 
+    @NotNull
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
     private List<Biometria> biometrias = new ArrayList<>();
 
+    @NotNull
     @OneToMany(mappedBy = "cartao",cascade = CascadeType.MERGE)
     private List<Bloqueio> bloqueios = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private StatusBloqueio statusBloqueio = StatusBloqueio.DESBLOQUEADO;
 
+    @NotNull
     @OneToMany(mappedBy = "cartao", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Aviso> avisos = new ArrayList<>();
 
+    @NotNull
+    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private Collection<Carteira> carteiras = new ArrayList<>();
 
 
 //    @Enumerated(EnumType.STRING)
 //    private StatusBloqueio status = StatusBloqueio.DESBLOQUEADO;
-//    @NotNull
-//    @NotNull
-//    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    private Collection<Carteira> carteiras = new ArrayList<>();
 //    @NotNull
 //    @OneToMany(mappedBy = "cartao", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 //    private Collection<Parcela> parcelas = new ArrayList<>();
@@ -75,14 +79,6 @@ public class Cartao {
         this.titular = titular;
         this.proposta = proposta;
     }
-
-//        this.avisos = avisos.stream().map(aviso -> aviso.toCartaoAviso(this)).collect(Collectors.toList());
-//        this.carteiras = carteiras.stream().map(carteira -> carteira.toCarteiraDigital(this))
-//                .collect(Collectors.toList());
-//        this.parcelas = parcelas.stream().map(parcela -> parcela.toParcela(this)).collect(Collectors.toList());
-//        this.renegociacao = renegociacao == null ? null : renegociacao.toRenegociacao(this);
-//        this.vencimento = vencimento.toVencimento(this);
-
 
     public Long getId() {
         return this.id;
@@ -136,14 +132,18 @@ public class Cartao {
         this.avisos.add(aviso);
     }
 
+   public Collection<Carteira> getCarteiras() {
+       return this.carteiras;
+   }
+
+   public void associaCarteiras(Carteira carteira) {
+    this.carteiras.add(carteira);
+    }
+
 }
 
 
 
-
-//    public Collection<Carteira> getCarteiras() {
-//        return this.carteiras;
-//    }
 //
 //    public Collection<Parcela> getParcelas() {
 //        return this.parcelas;
@@ -159,6 +159,3 @@ public class Cartao {
 //    }
 //
 
-//    public void associaCarteiras(Carteira carteira) {
-//        this.carteiras.add(carteira);
-//    }
