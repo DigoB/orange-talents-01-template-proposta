@@ -113,7 +113,7 @@ public class Cartao {
     }
 
     public void bloquear() {
-        StatusBloqueio statusBloqueio = StatusBloqueio.BLOQUEADO;
+        statusBloqueio = StatusBloqueio.BLOQUEADO;
     }
 
     public void bloquear(Bloqueio bloqueio) {

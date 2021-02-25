@@ -1,6 +1,7 @@
 package br.com.zup.projetopropostacartao.propostas;
 
 import br.com.zup.projetopropostacartao.cartao.Cartao;
+import br.com.zup.projetopropostacartao.config.CryptoConverter;
 import br.com.zup.projetopropostacartao.validators.CpfCnpj;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -28,6 +29,7 @@ public class Proposta {
     @NotBlank
     @NotNull
     @CpfCnpj
+    @Convert(converter = CryptoConverter.class)
     @Column(nullable = false)
     private String documento;
     @NotNull

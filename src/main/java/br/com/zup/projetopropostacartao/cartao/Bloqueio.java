@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bloqueiosCartao")
+@Table(name = "bloqueios")
 public class Bloqueio {
 
 

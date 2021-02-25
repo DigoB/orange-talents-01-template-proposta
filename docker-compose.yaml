@@ -149,6 +149,9 @@ services:
       - DATABASE_PASSWORD=Administrator*
       - ANALISE_HOST=analise:9999
       - CARTAO_HOST=contas:8888
+      - JAEGER_ENABLED=true
+      - JAEGER_SAMPLER=1
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
   mysqldb:
     image: 'mysql:5.7'
     expose:
